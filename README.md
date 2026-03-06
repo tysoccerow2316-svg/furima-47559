@@ -4,10 +4,10 @@ users テーブル
 |name|string|null: false|
 |email|string|null: false,unique:true|
 |encrypted_password|integer|null: false|
-|Last Name|string|null: false|
-|First Name|string|null: false|
-|Last Name Kana|string|null: false|
-|First Name Kana|string|null: false|
+|Last_Name|string|null: false|
+|First_Name|string|null: false|
+|Last_Name_Kana|string|null: false|
+|First_Name_Kana|string|null: false|
 |date_of_birth|date|null: false|
 
 has_many :products
@@ -35,10 +35,11 @@ has_one :purchase_record
 purchase_recordsテーブル
 
 |Column|Type|Options|
-| users| references | null: false, foreign_key: true | 
-| products| references | null: false, foreign_key: true |
+|user| references | null: false, foreign_key: true | 
+|product| references | null: false, foreign_key: true |
 belongs_to :product
 has_one :shipping_address
+belongs_to :user
 
 
 shipping_addressesテーブル
@@ -50,6 +51,6 @@ shipping_addressesテーブル
 |street_address|string|null: false|
 |building_name|string|null: true|
 |phone_number|string|null: false|
-| purchase_history_records | references | null: false, foreign_key: true |
+|purchase_records| references | null: false, foreign_key: true |
 
 belongs_to :purchase_record
