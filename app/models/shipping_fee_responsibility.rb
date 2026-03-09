@@ -1,4 +1,7 @@
-class Shipping_fee_responsibility < ActiveHash::Base
-  self.data = []
+class ShippingFeeResponsibility < ActiveHash::Base
+  self.data = [
+    { id: 1, name: '着払い（購入者負担' },
+    { id: 2, name: '送料込み（出品者負担' }
+  ]
   belongs_to_active_hash :shipping_fee_responsibility
 end
