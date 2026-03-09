@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   # root "posts#index"
    root 'items#index'
    resources :users, only: [:new, :create]
+   resources :products
   
 end
