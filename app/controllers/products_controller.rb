@@ -1,16 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
   def index
-  end
-
-  def product_params
-    params.require(:product).permit(:image, :product_name,
-                                    :product_description,
-                                    :category_id,
-                                    :product_condition_id,
-                                    :shipping_fee_responsibility_id,
-                                    :origin_region_id,
-                                    :shipping_days_id,
-                                    :price).merge(user_id: current_user.id)
   end
 
   def new
@@ -25,5 +15,18 @@ class ProductsController < ApplicationController
     else
       render :new
     end
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:image, :product_name,
+                                    :product_description,
+                                    :category_id,
+                                    :product_condition_id,
+                                    :shipping_fee_responsibility_id,
+                                    :origin_region_id,
+                                    :shipping_days_id,
+                                    :price).merge(user_id: current_user.id)
   end
 end
