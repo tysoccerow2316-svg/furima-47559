@@ -1,6 +1,11 @@
 class Product < ApplicationRecord
   has_one_attached :image
   extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :product_condition
+  belongs_to :shipping_fee_responsibility
+  belongs_to :origin_region
+  belongs_to :shipping_days
 
   validates :image, presence: true
   validates :product_name, presence: true, length: { maximum: 40 }
