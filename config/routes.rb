@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-   root 'items#index'
+   root 'products#index'
    resources :users, only: [:new, :create]
+   resources :products, only: [:index, :new, :create]
   
 end
