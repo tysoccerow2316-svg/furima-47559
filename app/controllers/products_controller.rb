@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_product, only: [:show, :edit, :update, :ensure_correct_user]
+  before_action :set_product, only: [:show, :edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
@@ -37,6 +37,7 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
+    ensure_correct_user
   end
 
   def ensure_correct_user
