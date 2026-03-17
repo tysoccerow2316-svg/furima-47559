@@ -6,15 +6,18 @@ class PurchasesController < ApplicationController
   def index
     @product = Product.find(params[:product_id])
     @purchase_form = PurchaseForm.new
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
   def create
     @product = Product.find(params[:product_id])
     @purchase_form = PurchaseForm.new(purchase_form_params)
     if @purchase_form.valid?
+      pay_item
       @purchase_form.save
       redirect_to root_path
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index
     end
   end
@@ -31,7 +34,8 @@ class PurchasesController < ApplicationController
       :phone_number
     ).merge(
       user_id: current_user.id,
-      product_id: params[:product_id]
+      product_id: params[:product_id],
+      token: params[:token]
     )
   end
 
@@ -43,5 +47,14 @@ class PurchasesController < ApplicationController
     return unless current_user == @product.user || @product.sold_out?
 
     redirect_to root_path
+  end
+
+  def pay_item
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @product.price,
+      card: purchase_form_params[:token],
+      currency: 'jpy'
+    )
   end
 end
