@@ -6,7 +6,7 @@
     <h1 class='transaction-title-text'>
       購入内容の確認
     </h1>
-    <%= render 'shared/error_messages', model: @purchase_form %>
+   
 
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
@@ -35,6 +35,8 @@
     <%# /支払額の表示 %>
     <%= include_gon %>
     <%= form_with model: @purchase_form, url:  product_purchases_path(@product), id: 'charge-form', class: 'transaction-form-wrap',   data: { turbo: false },local: true do |f| %>
+     
+     <%= render 'shared/error_messages', model: @purchase_form %>
     
     <%# カード情報の入力 %>
     

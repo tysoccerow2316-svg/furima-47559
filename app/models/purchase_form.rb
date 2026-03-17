@@ -12,6 +12,8 @@ class PurchaseForm
   validates :phone_number, presence: true,
                            format: { with: /\A\d{10,11}\z/, message: 'は10桁以上11桁以内の半角数字で入力してください' }
   validates :token, presence: true
+  validates :user_id, presence: true
+  validates :product_id, presence: true
   def save
     purchase_record = PurchaseRecord.create(user_id: user_id, product_id: product_id)
 
