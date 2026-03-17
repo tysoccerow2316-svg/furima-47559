@@ -19,4 +19,9 @@ class Product < ApplicationRecord
   validates :shipping_days_id, numericality: { other_than: 1 }
   validates :category_id, numericality: { other_than: 1 }
   belongs_to :user
+  has_many :purchase_records
+
+  def sold_out?
+    purchase_records.exists?
+  end
 end

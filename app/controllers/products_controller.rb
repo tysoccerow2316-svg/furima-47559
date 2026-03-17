@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :check_product_status, only: [:edit, :update]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -61,5 +62,11 @@ class ProductsController < ApplicationController
                                     :origin_region_id,
                                     :shipping_days_id,
                                     :price).merge(user_id: current_user.id)
+  end
+
+  def check_product_status
+    return unless @product.sold_out?
+
+    redirect_to root_path
   end
 end
