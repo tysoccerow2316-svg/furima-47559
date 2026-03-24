@@ -73,7 +73,7 @@ group :development do
   gem 'rubocop', '1.71.2', require: false
 end
 group :production do
-  gem 'pg'
+   gem 'unicorn', '6.1.0'
 end
 gem 'active_hash'
 gem 'devise'
